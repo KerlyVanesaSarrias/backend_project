@@ -14,8 +14,4 @@ router.post("/user",(req, res) =>{
     res.json('Users created')
 })
 
-router.delete("/user/:userId", (req, res) =>{
-    res.json('User deleted')
-})
-
 export default router;
