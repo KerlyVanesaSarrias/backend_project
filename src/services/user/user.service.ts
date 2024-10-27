@@ -20,4 +20,9 @@ export class UserService implements IUserService {
     return user ? toUserDto(user) : null;
   }
 
+  async deleteById(userId: string): Promise<User | null> {
+    const userDelete = await this.userRepository.deleteById(userId);
+    return userDelete ? toUserDto(userDelete) : null;
+  }
+
 }

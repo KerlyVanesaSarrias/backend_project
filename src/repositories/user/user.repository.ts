@@ -12,6 +12,9 @@ export class UserRepository implements IUserRepository {
       const user = await UserModel.findById(userId);
       return user;
     }
-    
 
+    async deleteById(userId: string): Promise<User | null> {
+      const userDelete = await UserModel.findOneAndDelete({_id: userId});
+      return userDelete;
+    }
 }
