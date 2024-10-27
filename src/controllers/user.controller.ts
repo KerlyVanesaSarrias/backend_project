@@ -16,4 +16,10 @@ export class UserController {
     const users = await userService.getUsersList();
     res.json(users);
   }
+
+  async deleteUser(req: Request, res: Response) {
+    const userId = req.params.userId;
+    await userService.deleteById(userId);
+    res.json({ message: "User deleted successfully" });
+  }
 }

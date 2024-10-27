@@ -8,6 +8,8 @@ router.get("/", userController.getUsersList)
 
 router.get("/user/:userId", userController.getUser)
 
+router.delete("/user/:userId", userController.deleteUser)
+
 router.post("/user",(req, res) =>{
     res.json('Users created')
 })
