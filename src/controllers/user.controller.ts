@@ -11,4 +11,9 @@ export class UserController {
     const user = await userService.getUserById(userId);
     res.json(user);
   }
+
+  async getUsersList(req: Request, res: Response){
+    const users = await userService.getUsersList();
+    res.json(users);
+  }
 }
