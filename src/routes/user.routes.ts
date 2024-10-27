@@ -12,9 +12,6 @@ router.delete("/user/:userId", userController.deleteUser)
 
 router.put("/user/:userId", userController.updateUser)
 
-
-router.post("/user",(req, res) =>{
-    res.json('Users created')
-})
+router.post("/user/create", userController.createUser)
 
 export default router;

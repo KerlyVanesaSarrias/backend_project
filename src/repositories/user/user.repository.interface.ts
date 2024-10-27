@@ -5,4 +5,5 @@ export interface IUserRepository {
     findAll(): Promise<User[]>
     deleteById(userId: string): Promise<User | null>
     updateById(userid: string, newUser: User): Promise<User | null>
+    createUser(user: User): Promise<User>
 }

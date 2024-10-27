@@ -21,6 +21,11 @@ export class UserRepository implements IUserRepository {
     async updateById(userId: string, newUser: User): Promise<User | null> {
       const userUpdate = await UserModel.findByIdAndUpdate(userId, newUser, { new: true });
       return userUpdate;
-
     }
+
+    async createUser(user: User): Promise<User> {
+      const userCreate = await UserModel.create(user);
+      return userCreate;
+    }
+    
 }

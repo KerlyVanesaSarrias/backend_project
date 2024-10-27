@@ -29,4 +29,11 @@ export class UserController {
     const updatedUser = await userService.updateById(userId, user);
     res.json(updatedUser);
   }
+
+  
+  async createUser(req: Request, res: Response){
+    const user = req.body
+    const createdUser = await userService.createUser(user);
+    res.json(createdUser);
+  }
 }
