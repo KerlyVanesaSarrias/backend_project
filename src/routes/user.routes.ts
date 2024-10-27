@@ -4,9 +4,7 @@ import { UserController } from '../controllers/user.controller';
 const userController = new UserController();
 const router = Router();
 
-router.get("/", (req, res) => {
-    res.json('Users list')
-})
+router.get("/", userController.getUsersList)
 
 router.get("/user/:userId", userController.getUser)
 
