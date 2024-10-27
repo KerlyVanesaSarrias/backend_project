@@ -29,4 +29,9 @@ export class UserService implements IUserService {
     const userUpdate = await this.userRepository.updateById(userId, newUser);
     return userUpdate ? toUserDto(userUpdate) : null;
   }
+
+  async createUser(user: User ): Promise<User> {
+    const userCreate = await this.userRepository.createUser(user);
+    return toUserDto(userCreate);
+  }
 }
