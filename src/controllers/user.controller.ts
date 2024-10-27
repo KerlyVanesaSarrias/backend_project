@@ -22,4 +22,11 @@ export class UserController {
     await userService.deleteById(userId);
     res.json({ message: "User deleted successfully" });
   }
+
+  async updateUser(req: Request, res: Response){
+    const userId = req.params.userId;
+    const user = req.body;
+    const updatedUser = await userService.updateById(userId, user);
+    res.json(updatedUser);
+  }
 }

@@ -25,4 +25,8 @@ export class UserService implements IUserService {
     return userDelete ? toUserDto(userDelete) : null;
   }
 
+  async updateById(userId:string, newUser: User ): Promise<User | null> {
+    const userUpdate = await this.userRepository.updateById(userId, newUser);
+    return userUpdate ? toUserDto(userUpdate) : null;
+  }
 }
