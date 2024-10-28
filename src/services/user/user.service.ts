@@ -2,6 +2,7 @@ import { toUserDto } from "../../dto/user.dto";
 import { User } from "../../interfaces/user.interface";
 import { IUserRepository } from "../../repositories/user/user.repository.interface";
 import { IUserService } from "./user.servise.interface";
+import bcrypt from "bcrypt";
 
 export class UserService implements IUserService {
   private userRepository: IUserRepository;
@@ -10,7 +11,7 @@ export class UserService implements IUserService {
     this.userRepository = userRepository;
   }
 
- async getUsersList(): Promise<User[]> {
+  async getUsersList(): Promise<User[]> {
     const usersList = await this.userRepository.findAll();
     return usersList.map((user) => toUserDto(user));
   }
@@ -25,13 +26,26 @@ export class UserService implements IUserService {
     return userDelete ? toUserDto(userDelete) : null;
   }
 
-  async updateById(userId:string, newUser: User ): Promise<User | null> {
+  async updateById(userId: string, newUser: User): Promise<User | null> {
     const userUpdate = await this.userRepository.updateById(userId, newUser);
     return userUpdate ? toUserDto(userUpdate) : null;
   }
 
-  async createUser(user: User ): Promise<User> {
-    const userCreate = await this.userRepository.createUser(user);
+  async createUser(user: User): Promise<User | null> {
+    const existingUser = await this.userRepository.findUserByEmailOrNick({
+      email: user.email,
+      nick: user.nick,
+    });
+    if (existingUser) return null;
+
+    const saltRounds = 10;
+    const hashedPassword = await bcrypt.hash(user.password ?? '', saltRounds);
+
+    const userCreate = await this.userRepository.createUser({
+      ...user,
+      password: hashedPassword,
+    });
+
     return toUserDto(userCreate);
   }
 }
