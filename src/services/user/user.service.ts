@@ -38,17 +38,17 @@ export class UserService implements IUserService {
       nick: user.nick,
     });
     if (existingUser) return null;
-    
-    if (!user.password) {
-      throw new Error('Password is required');
-  }
-  const saltRounds = 10; 
-  const hashedPassword = await bcrypt.hash(user.password, saltRounds); 
 
-  const userCreate = await this.userRepository.createUser({
+    if (!user.password) {
+      throw new Error("Password is required");
+    }
+    const saltRounds = 10;
+    const hashedPassword = await bcrypt.hash(user.password, saltRounds);
+
+    const userCreate = await this.userRepository.createUser({
       ...user,
-      password: hashedPassword, 
-  });
+      password: hashedPassword,
+    });
 
     return toUserDto(userCreate);
   }
