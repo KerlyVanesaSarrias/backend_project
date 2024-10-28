@@ -1,5 +1,6 @@
 import { toUserDto } from "../../dto/user.dto";
 import { User } from "../../interfaces/user.interface";
+import UserModel from "../../models/user.model";
 import { IUserRepository } from "../../repositories/user/user.repository.interface";
 import { IUserService } from "./user.servise.interface";
 
@@ -30,7 +31,10 @@ export class UserService implements IUserService {
     return userUpdate ? toUserDto(userUpdate) : null;
   }
 
-  async createUser(user: User ): Promise<User> {
+  async createUser(user: User ): Promise<User | null> {
+    const existingUser = await this.userRepository.findUserByEmailOrNick({ email: user.email, nick: user.nick });
+    if(existingUser) return null;
+
     const userCreate = await this.userRepository.createUser(user);
     return toUserDto(userCreate);
   }

@@ -32,8 +32,21 @@ export class UserController {
 
   
   async createUser(req: Request, res: Response){
-    const user = req.body
-    const createdUser = await userService.createUser(user);
-    res.json(createdUser);
+    try {
+      const user = req.body
+      const createdUser = await userService.createUser(user);
+      if(createdUser){
+        res.status(201).json(createdUser);
+      } else {
+        res.status(400).json({ message: 'Existing user'})
+      }
+    } catch(e) {
+      console.error('createUser error:', e);
+      if(e instanceof Error){
+        res.status(400).json({ message: e.message });
+      } else {
+        res.status(500).json({ message: 'Internal Server Error' });
+      }
+    }
   }
 }

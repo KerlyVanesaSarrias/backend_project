@@ -1,6 +1,6 @@
 import { User } from "../../interfaces/user.interface";
 import UserModel from "../../models/user.model";
-import { IUserRepository } from "./user.repository.interface";
+import { IUserRepository, UserByEmailOrNickParams } from "./user.repository.interface";
 
 export class UserRepository implements IUserRepository {
     async findAll(): Promise<User[]> {
@@ -25,7 +25,13 @@ export class UserRepository implements IUserRepository {
 
     async createUser(user: User): Promise<User> {
       const userCreate = await UserModel.create(user);
+      console.log('userCreate: ', userCreate)
       return userCreate;
     }
-    
+
+    async findUserByEmailOrNick({email, nick}: UserByEmailOrNickParams): Promise<User | null> {
+      const existingUser = await UserModel.findOne({$or: [{ email: email?.toLowerCase() }, { nick: nick?.toLowerCase() }]});
+      return existingUser
+    }
+
 }
