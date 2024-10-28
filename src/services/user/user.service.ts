@@ -1,6 +1,5 @@
 import { toUserDto } from "../../dto/user.dto";
 import { User } from "../../interfaces/user.interface";
-import UserModel from "../../models/user.model";
 import { IUserRepository } from "../../repositories/user/user.repository.interface";
 import { IUserService } from "./user.servise.interface";
 import bcrypt from "bcrypt";
@@ -39,11 +38,8 @@ export class UserService implements IUserService {
     });
     if (existingUser) return null;
 
-    if (!user.password) {
-      throw new Error("Password is required");
-    }
     const saltRounds = 10;
-    const hashedPassword = await bcrypt.hash(user.password, saltRounds);
+    const hashedPassword = await bcrypt.hash(user.password ?? '', saltRounds);
 
     const userCreate = await this.userRepository.createUser({
       ...user,
