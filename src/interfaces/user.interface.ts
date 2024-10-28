@@ -5,7 +5,7 @@ export interface User {
   nick:string;
   age: number;
   email: string;
-  password?: string;
+  password: string;
   phoneNumber: string;
   image: string;
   roles:string[];

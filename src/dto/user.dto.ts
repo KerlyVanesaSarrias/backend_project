@@ -12,5 +12,6 @@ export const toUserDto = (data: User & { _id?: string }): User => {
     image: data.image,
     phoneNumber: data.phoneNumber,
     age: data.age,
+    password: data.password
   };
 };
