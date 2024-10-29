@@ -1,4 +1,4 @@
-import { User } from "../../interfaces/user.interface";
+import { User } from '../../interfaces/user.interface';
 import UserModel from "../../models/user.model";
 import { IUserRepository, UserByEmailOrNickParams } from "./user.repository.interface";
 
