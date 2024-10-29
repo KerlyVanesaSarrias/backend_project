@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { UserService } from "../services/user/user.service";
 import { UserRepository } from "../repositories/user/user.repository";
+import { LoginBody } from "../interfaces/user.interface";
 
 const userRepo = new UserRepository();
 const userService = new UserService(userRepo);
@@ -49,4 +50,19 @@ export class UserController {
       }
     }
   }
+
+  async login(req: Request, res: Response) {
+    const { email, password } = req.body as LoginBody;
+    try {
+        const loginResponse = await userService.login(email, password);
+
+        if (!loginResponse) {
+          res.status(401).json({ message: 'Invalid credential' });
+          return;
+        }
+        res.json(loginResponse);
+    } catch (error) {
+        res.status(500).json({ message: 'Internal Server Error', error });
+    }
+}
 }

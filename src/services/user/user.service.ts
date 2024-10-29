@@ -1,8 +1,9 @@
 import { toUserDto } from "../../dto/user.dto";
 import { User } from "../../interfaces/user.interface";
 import { IUserRepository } from "../../repositories/user/user.repository.interface";
-import { IUserService } from "./user.servise.interface";
+import { IUserService, LoginResponse } from "./user.servise.interface";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 export class UserService implements IUserService {
   private userRepository: IUserRepository;
@@ -39,7 +40,7 @@ export class UserService implements IUserService {
     if (existingUser) return null;
 
     const saltRounds = 10;
-    const hashedPassword = await bcrypt.hash(user.password ?? '', saltRounds);
+    const hashedPassword = await bcrypt.hash(user.password ?? "", saltRounds);
 
     const userCreate = await this.userRepository.createUser({
       ...user,
@@ -47,5 +48,22 @@ export class UserService implements IUserService {
     });
 
     return toUserDto(userCreate);
+  }
+
+  async login(email: string, password: string): Promise<LoginResponse | null> {
+    const user = await this.userRepository.findUserByEmailOrNick({ email });
+    if (!user) return null;
+
+    const isPasswordValid = bcrypt.compare(password, user.password ?? "");
+    if (!isPasswordValid) return null;
+
+    const token = jwt.sign(
+      { id: user.id, email: user.email, roles: user.roles },
+      process.env.SECRET_KEY as string,
+      { expiresIn: "24h" }
+    );
+    if(!token) return null;
+    
+    return { token, user: toUserDto(user) };
   }
 }
