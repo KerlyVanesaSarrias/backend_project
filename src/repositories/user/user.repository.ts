@@ -1,4 +1,4 @@
-import { User } from "../../interfaces/user.interface";
+import { User } from '../../interfaces/user.interface';
 import UserModel from "../../models/user.model";
 import { IUserRepository, UserByEmailOrNickParams } from "./user.repository.interface";
 
@@ -34,7 +34,5 @@ export class UserRepository implements IUserRepository {
       const existingUser = await UserModel.findOne({$or: [{ email: email?.toLowerCase() }, { nick: nick?.toLowerCase() }]});
       return existingUser
     }
-
-
 
 }

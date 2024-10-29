@@ -20,4 +20,7 @@ router.post("/user/create", validate(userCreateValidationShema), userController.
 
 router.post("/user/login", validate(loginValidationSchema), userController.login);
 
+router.get("/user", ensureAuth, userController.profile)
+
+
 export default router;
