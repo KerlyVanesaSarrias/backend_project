@@ -6,6 +6,7 @@ const userRepo = new UserRepository();
 const userService = new UserService(userRepo);
 
 export class UserController {
+  
   async getUser(req: Request, res: Response) {
     const userId = req.params.userId;
     const user = await userService.getUserById(userId);

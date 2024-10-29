@@ -16,5 +16,9 @@ export class LocationService implements ILocationService {
     return usersList;
   }
 
-
+  async getLocationById(locationId: string): Promise<Location | null> {
+    const location = await this.locationRepository.findById(locationId);
+    return location ;
+  }
+  
 }

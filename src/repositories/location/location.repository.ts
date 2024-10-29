@@ -7,4 +7,9 @@ export class LocationRepository implements ILocationRepository {
     const locationList = await LocationModel.find();
     return locationList;
   }
+  async findById(locationId: string): Promise<Location | null> {
+    const location = await LocationModel.findById(locationId);
+    return location;
+  }
+
 }

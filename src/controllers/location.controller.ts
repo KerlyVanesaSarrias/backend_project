@@ -10,4 +10,10 @@ export class LocationController {
     const locations = await locationService.getLocationList();
     res.json(locations);
   }
+
+  async getLocationById(req: Request, res: Response) {
+    const locationId = req.params.locationId;
+    const location = await locationService.getLocationById(locationId);
+    res.json(location);
+  }
 }
