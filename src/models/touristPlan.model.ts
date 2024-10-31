@@ -24,6 +24,10 @@ const touristPlanSchema = new Schema<TouristPlan>({
         type: Number,
         required: true
     },
+    coverImage:{
+        type:String,
+        default: "default_image.png"
+    },
     images: {
         type: [String],
         required: true
