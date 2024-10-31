@@ -36,6 +36,22 @@ export const ensureAuth = (req: Request, res: Response, next: NextFunction) => {
     });
     return;
   }
-
   next();
+};
+
+export const checkRole = (allowedRoles: string[]) => {
+  return (req: Request, res: Response, next: NextFunction) => {
+    const user = res.locals.user as User;
+
+    const hasRole = user.roles.some((role) => allowedRoles.includes(role));
+
+    if (!hasRole) {
+      return res.status(403).send({
+        status: "error",
+        message: "Access denied: insufficient permissions",
+      });
+    }
+
+    next();
+  };
 };

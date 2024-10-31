@@ -33,7 +33,8 @@ const userSchema = new Schema<User>({
     },
     roles: {
         type: [String],
-        default: ["role_user"]
+        required: true,
+        
     },
     createdAt: {
         type: Date,

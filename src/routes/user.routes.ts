@@ -8,9 +8,9 @@ import { ensureAuth } from "../middlewares/auth";
 const userController = new UserController();
 const router = Router();
 
-router.get("/", userController.getUsersList)
+router.get("/",ensureAuth, userController.getUsersList)
 
-router.get("/user/:userId",userController.getUser)
+router.get("/user/:userId",ensureAuth, userController.getUser)
 
 router.delete("/user", ensureAuth, userController.deleteUser)
 
