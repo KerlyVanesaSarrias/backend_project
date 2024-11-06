@@ -4,8 +4,8 @@ import { ILocationRepository } from "./location.repository.interface";
 
 export class LocationRepository implements ILocationRepository {
   async findAll(): Promise<Location[]> {
-    const locationList = await LocationModel.find();
-    return locationList;
+    const locationsList = await LocationModel.find();
+    return locationsList;
   }
   async findById(locationId: string): Promise<Location | null> {
     const location = await LocationModel.findById(locationId);

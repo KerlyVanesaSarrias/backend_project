@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { UserService } from "../services/user/user.service";
 import { UserRepository } from "../repositories/user/user.repository";
-import { LoginBody, User } from "../interfaces/user.interface";
+import { AuthUser, LoginBody, User } from "../interfaces/user.interface";
 
 const userRepo = new UserRepository();
 const userService = new UserService(userRepo);
@@ -20,13 +20,13 @@ export class UserController {
   }
 
   async deleteUser(req: Request, res: Response) {
-    const userId = res.locals.user as User;
+    const userId = res.locals.user as AuthUser;
     await userService.deleteById(userId.id);
     res.json({ message: "User deleted successfully" });
   }
 
   async updateUser(req: Request, res: Response) {
-    const userToken = res.locals.user as User;
+    const userToken = res.locals.user as AuthUser;
     const userId = userToken.id;
     const user = req.body;
     const updatedUser = await userService.updateById(userId, user);
@@ -68,7 +68,7 @@ export class UserController {
   }
 
   async profile(req: Request, res: Response) {
-    const userToken = res.locals.user as User;
+    const userToken = res.locals.user as AuthUser;
     const userId = userToken.id;
     const userProfile = await userService.getUserById(userId);
     res.json(userProfile);
