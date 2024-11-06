@@ -1,5 +1,5 @@
-import { Schema, model } from "mongoose";
-import { Location } from "../interfaces/location.interface";
+import { Schema, model,  Types } from 'mongoose';
+import { Location, City } from '../interfaces/location.interface';
 
 const locationSchema = new Schema<Location>({
     name: {
@@ -10,7 +10,7 @@ const locationSchema = new Schema<Location>({
         type: String,
         default: "defaultCity.png",
     },
-    department: {
+    city: {
         type: String,
         required: true,
     },
