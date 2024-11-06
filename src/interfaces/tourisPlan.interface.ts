@@ -1,8 +1,9 @@
-import { ObjectId } from "mongoose";
+import { Location } from "./location.interface";
+import { User } from "./user.interface";
 
 export interface TouristPlan {
     id: string;
-    locationId: ObjectId | Location; 
+    location: Location; 
     name: string;
     description: string;
     address: string;
@@ -10,6 +11,14 @@ export interface TouristPlan {
     coverImage:String,
     images: string[];
     available?: boolean; 
-    created_by: ObjectId;  
-    created_at?: Date;  
+    createdBy: User;  
+    createdAt?: Date;  
+}
+
+export interface CreateTouristPlanBody {
+    location: Location; 
+    name: string;
+    description: string;
+    address: string;
+    price: number;
 }

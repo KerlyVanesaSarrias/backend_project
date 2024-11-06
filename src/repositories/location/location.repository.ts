@@ -11,5 +11,21 @@ export class LocationRepository implements ILocationRepository {
     const location = await LocationModel.findById(locationId);
     return location;
   }
+  
+  async createLocation(location: Location): Promise<Location> {
+    const locationCreate = await LocationModel.create(location)
+    return locationCreate;
+  }
+
+  async updateById(locationId: string, newLocation: Location): Promise<Location | null> {
+    const locationUpdate = await LocationModel.findByIdAndUpdate(locationId, newLocation, { new: true });
+    return locationUpdate;
+  }
+
+  async deleteById(locationId: string): Promise<Location | null> {
+    const toristPlanDelete = await LocationModel.findOneAndDelete({_id: locationId});
+    return toristPlanDelete;
+  } 
+
 
 }

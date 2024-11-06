@@ -1,10 +1,10 @@
-import { Schema, model } from "mongoose";
+import { Schema, Types, model } from "mongoose";
 import { TouristPlan } from "../interfaces/tourisPlan.interface";
 
 
 const touristPlanSchema = new Schema<TouristPlan>({
-    locationId: {
-        type: Schema.ObjectId,
+    location: {
+        type: Types.ObjectId,
         ref: "Location",
         required: true
     },
@@ -36,15 +36,14 @@ const touristPlanSchema = new Schema<TouristPlan>({
         type: Boolean,
         default: true
     },
-    created_by: {
-        type: Schema.ObjectId,
+    createdBy: {
+        type: Types.ObjectId,
         ref: 'User',
         required: true
     },
-    created_at: {
+    createdAt: {
         type: Date,
         default: Date.now
-
     }
 });
     

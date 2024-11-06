@@ -1,16 +1,28 @@
 import { Request, Response } from "express";
 import { TouristPlanService } from "../services/tourisPlan/touristPlan.service";
 import { TouristPlanRepository } from "../repositories/touristPlan/touristPlan.repository";
-import { TouristPlan } from "../interfaces/tourisPlan.interface";
+import {
+  CreateTouristPlanBody,
+  TouristPlan,
+} from "../interfaces/tourisPlan.interface";
+import { AuthUser } from "../interfaces/user.interface";
+import { CreateTouristPlan } from "../services/tourisPlan/touristPlan.service.interface";
+import { ObjectId, Types } from "mongoose";
+import { LocationService } from "../services/location/location.service";
+import { LocationRepository } from "../repositories/location/location.repository";
 
 const touristPlanRepo = new TouristPlanRepository();
 const touristPlanService = new TouristPlanService(touristPlanRepo);
 
+const locationRepo = new LocationRepository();
+const locationService = new LocationService(locationRepo);
+
 export class TouristPlanController {
-  
   async getTouristPlan(req: Request, res: Response) {
     const touristPlanId = req.params.touristPlanId;
-    const touristPlan = await touristPlanService.getTouristPlanById(touristPlanId);
+    const touristPlan = await touristPlanService.getTouristPlanById(
+      touristPlanId
+    );
     res.json(touristPlan);
   }
 
@@ -26,18 +38,33 @@ export class TouristPlanController {
   }
 
   async updateTouristPlan(req: Request, res: Response) {
-    const touristPlanToken = res.locals.touristPlan as TouristPlan;
-    const touristPlanId = touristPlanToken.id;
+    const userAuthenticated = res.locals.user as AuthUser;
+    const touristPlanId = userAuthenticated.id;
     const touristPlan = req.body;
-    const updatedTouristPlan = await touristPlanService.updateById(touristPlanId, touristPlan);
+    const updatedTouristPlan = await touristPlanService.updateById(
+      touristPlanId,
+      touristPlan
+    );
     res.json(updatedTouristPlan);
-    }
+  }
 
   async createTouristPlan(req: Request, res: Response) {
     try {
-      const touristPlan = req.body;
-      const createdTouristPlan = await touristPlanService.createTouristPlan(touristPlan);
-       res.status(201).json(createdTouristPlan);
+      const { location, ...restCreateTouristProps } =
+        req.body as CreateTouristPlanBody;
+      const userAuthenticated = res.locals.user as AuthUser;
+
+      const locationCreated = await locationService.createLocation(location);
+      const createdTouristData: CreateTouristPlan = {
+        ...restCreateTouristProps,
+        coverImage: "default.png",
+        createdBy: new Types.ObjectId(userAuthenticated.id),
+        location: new Types.ObjectId(locationCreated?.id),
+      };
+      const createdTouristPlan = await touristPlanService.createTouristPlan(
+        createdTouristData
+      );
+      res.status(201).json(createdTouristPlan);
     } catch (e) {
       console.error("create TouristPlan error:", e);
       if (e instanceof Error) {
@@ -47,5 +74,4 @@ export class TouristPlanController {
       }
     }
   }
-
 }
