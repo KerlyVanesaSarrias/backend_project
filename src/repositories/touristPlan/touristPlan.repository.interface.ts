@@ -1,4 +1,5 @@
 import { TouristPlan } from "../../interfaces/tourisPlan.interface";
+import { CreateTouristPlan } from "../../services/tourisPlan/touristPlan.service.interface";
 
 
 export interface ITouristPlanRepository {
@@ -6,6 +7,5 @@ export interface ITouristPlanRepository {
     findById(toristPlanId: string): Promise<TouristPlan | null>
     deleteById(touristPlanId: string): Promise<TouristPlan | null>
     updateById(touristPlanId: string, newTouristPlan: TouristPlan): Promise<TouristPlan | null>
-    createTouristPlan(touristPlanId: TouristPlan): Promise<TouristPlan>
-
+    createTouristPlan(touristPlanId: CreateTouristPlan): Promise<TouristPlan>
 }

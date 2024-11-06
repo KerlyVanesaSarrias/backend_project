@@ -1,7 +1,7 @@
 
 import { TouristPlan } from "../../interfaces/tourisPlan.interface";
 import { ITouristPlanRepository } from "../../repositories/touristPlan/touristPlan.repository.interface";
-import { ITouristPlanService } from "./touristPlan.service.interface";
+import { CreateTouristPlan, ITouristPlanService } from "./touristPlan.service.interface";
 
 export class TouristPlanService implements ITouristPlanService {
   private touristPlanRepository: ITouristPlanRepository;
@@ -30,7 +30,7 @@ export class TouristPlanService implements ITouristPlanService {
     return touristPlanUpdate;
   }
 
-  async createTouristPlan(touristPlan: TouristPlan): Promise<TouristPlan | null> {
+  async createTouristPlan(touristPlan: CreateTouristPlan): Promise<TouristPlan | null> {
     const touristPlanCreate = await this.touristPlanRepository.createTouristPlan({...touristPlan});
     return touristPlanCreate;
   }
