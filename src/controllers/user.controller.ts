@@ -39,7 +39,7 @@ export class UserController {
       const createdUser = await userService.createUser(user);
       if (createdUser) {
         res.status(200).json({
-          status: "success",
+          status: "created",
           message: "User created successfully",
           createdUser});
       
