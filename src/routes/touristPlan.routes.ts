@@ -9,13 +9,13 @@ const router = Router();
 
 router.get("/", touristPlanController.getTouristPlansList)
 
-router.get("/touristPlan/:touristPlanId", touristPlanController.getTouristPlan)
+router.get("/:touristPlanId", touristPlanController.getTouristPlan)
 
-router.delete("/touristPlan", touristPlanController.deleteTouristPlan)
+router.delete("/", touristPlanController.deleteTouristPlan)
 
-router.put("/touristPlan", touristPlanController.updateTouristPlan)
+router.put("/", touristPlanController.updateTouristPlan)
 
-router.post("/touristPlan/create", touristPlanController.createTouristPlan)
+router.post("/create", touristPlanController.createTouristPlan)
 
 
 

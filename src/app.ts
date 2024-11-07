@@ -25,9 +25,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 
 app.use(express.json());
-app.use("/users", userRoutes )
-app.use("/locations", locationRoutes);
-app.use("/touristPlans", touristPlanRoutes);
+app.use("api/users", userRoutes )
+app.use("api/locations", locationRoutes);
+app.use("api/touristPlans", touristPlanRoutes);
 app.use(errorHandler)
 
 export default app;

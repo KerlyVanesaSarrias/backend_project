@@ -38,7 +38,11 @@ export class UserController {
       const user = req.body;
       const createdUser = await userService.createUser(user);
       if (createdUser) {
-        res.status(201).json(createdUser);
+        res.status(200).json({
+          status: "success",
+          message: "User created successfully",
+          createdUser});
+      
       } else {
         res.status(400).json({ message: "Existing user" });
       }
