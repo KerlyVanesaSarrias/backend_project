@@ -2,8 +2,9 @@ import moment from "moment";
 import jwt from "jwt-simple";
 import { Request, Response, NextFunction } from "express";
 import { AuthUser, User } from "../interfaces/user.interface";
+import { ROLES } from "../constants";
 
-type Roles = 'admin' | 'client' | 'super-admin';
+type Roles = typeof ROLES[keyof typeof ROLES];
 
 export const ensureAuth = (allowedRoles: Roles[]) => (req: Request, res: Response, next: NextFunction) => {
   if (!req.headers.authorization) {

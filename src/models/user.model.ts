@@ -1,5 +1,6 @@
 import { model, Schema } from "mongoose";
 import { User } from "../interfaces/user.interface";
+import { ROLES } from "../constants";
 
 const userSchema = new Schema<User>({
     name: {
@@ -33,7 +34,7 @@ const userSchema = new Schema<User>({
     },
     roles: {
         type: [String],
-        default: ['client'],
+        default: [ROLES.CLIENT],
         
     },
     createdAt: {
