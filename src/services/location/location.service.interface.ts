@@ -3,7 +3,7 @@ import { City, Location } from "../../interfaces/location.interface";
 export interface CreateLocation {
   id: string;
   name: string;
-  image: string;
+  description: string;
   city: City;
   lat: number;
   lon: number;

@@ -6,9 +6,8 @@ const locationSchema = new Schema<Location>({
         type: String,
         required: true,
     },
-    image: {
-        type: String,
-        default: "defaultCity.png",
+    description: {
+        type: String
     },
     city: {
         type: String,
