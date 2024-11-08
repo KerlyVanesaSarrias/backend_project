@@ -65,7 +65,10 @@ export class UserController {
         res.status(401).json({ message: "Invalid credential" });
         return;
       }
-      res.json(loginResponse);
+      res.status(200).json({
+        status: "loggedIn",
+        message: "User logged in successfully",
+        loginResponse});
     } catch (error) {
       res.status(500).json({ message: "Internal Server Error", error });
     }
