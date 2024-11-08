@@ -7,7 +7,6 @@ const userRepo = new UserRepository();
 const userService = new UserService(userRepo);
 
 export class UserController {
-  
   async getUser(req: Request, res: Response) {
     const userId = req.params.userId;
     const user = await userService.getUserById(userId);
@@ -41,8 +40,8 @@ export class UserController {
         res.status(200).json({
           status: "created",
           message: "User created successfully",
-          createdUser});
-      
+          createdUser,
+        });
       } else {
         res.status(400).json({ message: "Existing user" });
       }
@@ -68,7 +67,8 @@ export class UserController {
       res.status(200).json({
         status: "loggedIn",
         message: "User logged in successfully",
-        loginResponse});
+        loginResponse,
+      });
     } catch (error) {
       res.status(500).json({ message: "Internal Server Error", error });
     }
@@ -77,7 +77,26 @@ export class UserController {
   async profile(req: Request, res: Response) {
     const userToken = res.locals.user as AuthUser;
     const userId = userToken.id;
+    if (!userToken || userId) {
+      res.status(401).send({
+        status: "success",
+        message: "Unathenticated user",
+      });
+      return;
+    }
     const userProfile = await userService.getUserById(userId);
-    res.json(userProfile);
+
+    if (!userProfile) {
+      res.status(404).send({
+        status: "success",
+        message: "Usuario not found",
+      });
+      return;
+    }
+
+      res.status(200).json({
+      status: "success",
+      user: userProfile,
+    });
   }
 }

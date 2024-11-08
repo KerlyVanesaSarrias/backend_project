@@ -34,7 +34,9 @@ export class TouristPlanController {
   async deleteTouristPlan(req: Request, res: Response) {
     const touristPlanId = res.locals.touristPlan as TouristPlan;
     await touristPlanService.deleteById(touristPlanId.id);
-    res.json({ message: "TouristPlan deleted successfully" });
+    res.status(200).json({ 
+      message: "TouristPlan deleted successfully"
+    });
   }
 
   async updateTouristPlan(req: Request, res: Response) {
@@ -64,7 +66,10 @@ export class TouristPlanController {
       const createdTouristPlan = await touristPlanService.createTouristPlan(
         createdTouristData
       );
-      res.status(201).json(createdTouristPlan);
+      res.status(201).json({
+        status:'success',
+        message: "TouristPlan created successfully",
+        createdTouristPlan});
     } catch (e) {
       console.error("create TouristPlan error:", e);
       if (e instanceof Error) {

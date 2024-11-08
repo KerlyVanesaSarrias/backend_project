@@ -2,7 +2,7 @@ import { Types } from "mongoose";
 export interface Location {
   id: string;
   name: string;
-  image: string;
+  description: string;
   city: City;
   lat: number;
   lon: number;
@@ -12,5 +12,6 @@ export interface Location {
 export interface City {
   id: string;
   name: string;
+  department: string;
   image: string;
 };
