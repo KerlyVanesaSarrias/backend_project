@@ -16,7 +16,7 @@ export class TouristPlanRepository implements ITouristPlanRepository {
     }
 
     async deleteById(toristPlanId: string): Promise<TouristPlan | null> {
-      const toristPlanDelete = await TouristPlanModel.findOneAndDelete({_id: toristPlanId});
+      const toristPlanDelete = await TouristPlanModel.findOneAndDelete({id: toristPlanId});
       return toristPlanDelete;
     }
 

@@ -11,7 +11,7 @@ export interface CreateLocation {
 }
 export interface ILocationService {
   getLocationList(): Promise<Location[]>;
-  getLocationById(id: string): Promise<Location | null>;
+  getLocationById(locationId: string): Promise<Location | null>;
   deleteById(locationId: string): Promise<Location | null>;
   updateById(locationId: string, newLocation: Location): Promise<Location | null>;
   createLocation(location: CreateLocation): Promise<Location | null>;

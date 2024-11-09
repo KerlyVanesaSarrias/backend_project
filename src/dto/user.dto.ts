@@ -1,8 +1,8 @@
 import { User } from "../interfaces/user.interface";
 
-export const toUserDto = (data: User & { _id?: string }): User => {
+export const toUserDto = (data: User & { id?: string }): User => {
   return {
-    id: data._id ?? "",
+    id: data.id ?? "",
     name: data.name,
     lastName: data.lastName,
     email: data.email,
