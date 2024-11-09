@@ -15,7 +15,7 @@ export class UserRepository implements IUserRepository {
     }
 
     async deleteById(userId: string): Promise<User | null> {
-      const userDelete = await UserModel.findOneAndDelete({_id: userId});
+      const userDelete = await UserModel.findOneAndDelete({id: userId});
       return userDelete;
     }
     

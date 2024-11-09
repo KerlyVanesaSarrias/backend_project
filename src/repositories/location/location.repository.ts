@@ -23,8 +23,8 @@ export class LocationRepository implements ILocationRepository {
   }
 
   async deleteById(locationId: string): Promise<Location | null> {
-    const toristPlanDelete = await LocationModel.findOneAndDelete({_id: locationId});
-    return toristPlanDelete;
+    const locationDelete = await LocationModel.findOneAndDelete({id: locationId});
+    return locationDelete;
   } 
 
 

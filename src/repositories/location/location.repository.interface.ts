@@ -5,6 +5,6 @@ export interface ILocationRepository {
     findAll(): Promise<Location[]>
     findById(locationId: string): Promise<Location | null>
     createLocation(location: Location): Promise<Location>
-    updateById(locationId: string, newUser: Location): Promise<Location | null>
+    updateById(locationId: string, newLocation: Location): Promise<Location | null>
     deleteById(locationId: string): Promise<Location | null>
 }
