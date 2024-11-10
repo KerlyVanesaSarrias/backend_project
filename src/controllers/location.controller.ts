@@ -51,5 +51,21 @@ export class LocationController {
         }
       }
     }
+
+    async getCities(req: Request, res: Response) {
+      try {
+        const citiesData = await locationService.getCities();
+        res.status(200).json(citiesData); 
+    } catch (e) {
+      console.error("getCities error:", e);
+      if (e instanceof Error) {
+        res.status(400).json({ message: e.message });
+      } else {
+        res.status(500).json({ message: "Internal Server Error" });
+      }
+    }
+
+    }
 }
+
 

@@ -36,8 +36,8 @@ export const cities: City[] = [
     { id: "33", name: "Tello", image: "https://example.com/tello.jpg", department: "Huila" },
     { id: "34", name: "Teruel", image: "https://example.com/teruel.jpg", department: "Huila" },
     { id: "35", name: "Timaná", image: "https://example.com/timana.jpg", department: "Huila" },
-    { id: "36", name: "Villavieja", image: "https://example.com/villavieja.jpg", department: "Huila" },
-    { id: "37", name: "Yaguará", image: "https://example.com/yaguara.jpg", department: "Huila" }
+    { id: "36", name: "Villavieja", image: "https://res.cloudinary.com/dc38afvjc/image/upload/v1731272646/cities/im1zw5r4u046jyx7szm9.jpg", department: "Huila" },
+    { id: "37", name: "Yaguará", image: "https://res.cloudinary.com/dc38afvjc/image/upload/v1731272780/cities/u1hg8uhyewteauw4d3sw.jpg", department: "Huila" }
 ]
 
 export const ROLES = {

@@ -1,5 +1,7 @@
 import { ObjectId, Schema, Types } from 'mongoose';
 import { TouristPlan } from '../../interfaces/tourisPlan.interface';
+import { cities } from '../../constants/index';
+import { City } from '../../interfaces/location.interface';
 
 
 export interface CreateTouristPlan {
