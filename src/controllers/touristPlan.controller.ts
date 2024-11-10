@@ -27,7 +27,8 @@ export class TouristPlanController {
   }
 
   async getTouristPlansList(req: Request, res: Response) {
-    const touristPlans = await touristPlanService.getTouristPlansList();
+    const cityId = req.query.cityId;
+    const touristPlans = await touristPlanService.getTouristPlansList(cityId?.toString());
     res.json(touristPlans);
   }
 
@@ -58,7 +59,7 @@ export class TouristPlanController {
       const userAuthenticated = res.locals.user as AuthUser;
 
       const locationCreated = await locationService.createLocation(location);
-      
+
       if (!locationCreated) {
         res.status(400).json({ message: "Location not created" });
         return;

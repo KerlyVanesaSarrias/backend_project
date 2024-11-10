@@ -3,7 +3,7 @@ import { CreateTouristPlan } from "../../services/tourisPlan/touristPlan.service
 
 
 export interface ITouristPlanRepository {
-    findAll(): Promise<TouristPlan[]>
+    findAll(cityId?: string): Promise<TouristPlan[]>
     findById(toristPlanId: string): Promise<TouristPlan | null>
     deleteById(touristPlanId: string): Promise<TouristPlan | null>
     updateById(touristPlanId: string, newTouristPlan: TouristPlan): Promise<TouristPlan | null>

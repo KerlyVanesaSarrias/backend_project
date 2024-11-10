@@ -12,8 +12,9 @@ export class TouristPlanService implements ITouristPlanService {
     this.touristPlanRepository = touristPlanRepository;
   }
 
-  async getTouristPlansList(): Promise<TouristPlan[]> {
-    const touristPlansList = await this.touristPlanRepository.findAll();
+  async getTouristPlansList(cityId?: string): Promise<TouristPlan[]> {
+    const touristPlansList = await this.touristPlanRepository.findAll(cityId);
+    console.log('touristPlansList', touristPlansList);
     const touristPlansWithCity = touristPlansList.map(touristPlan => {
       const city = cities.find(city => city.id === touristPlan.location.city) ?? {} as City;
       touristPlan.location.city = city;
