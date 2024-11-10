@@ -3,7 +3,6 @@ import { ReservationService } from "../services/reservation/reservation.service"
 import { ReservationRepository } from "../repositories/reservation/reservation.repository";
 import { Reservation,} from "../interfaces/reservation.interface";
 import { AuthUser } from "../interfaces/user.interface";
-import { CreateReservation } from '../services/reservation/reservation.service.interface';
 import { ObjectId, Types } from "mongoose";
 import { LocationService } from "../services/location/location.service";
 import { LocationRepository } from "../repositories/location/location.repository";
@@ -59,7 +58,7 @@ export class ReservationController {
           id:'',
         };
 
-        const savedReservation = await ReservationService.CreateReservation(newReservation);
+        const savedReservation = await reservationService.createReservation(newReservation)
         res.status(201).json(savedReservation);
     } catch (error) {
         res.status(500).json({ message: "Error al crear la reservación", error });

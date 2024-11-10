@@ -1,6 +1,6 @@
 
 
-import { CreateReservation, IReservationService } from "./reservation.service.interface";
+import { IReservationService } from "./reservation.service.interface";
 import { Reservation } from '../../interfaces/reservation.interface';
 import { IReservationRepository } from "../../repositories/reservation/reservation.repository.interface";
 
@@ -31,7 +31,7 @@ export class ReservationService implements IReservationService {
     return reservationUpdate;
   }
 
-  async createReservation(reservation: CreateReservation): Promise<Reservation | null> {
+  async createReservation(reservation: Reservation): Promise<Reservation | null> {
     const reservationCreate = await this.reservationRepository.createReservation({...reservation});
     return reservationCreate;
   }
