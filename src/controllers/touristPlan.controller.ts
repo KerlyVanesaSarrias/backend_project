@@ -58,7 +58,7 @@ export class TouristPlanController {
       const userAuthenticated = res.locals.user as AuthUser;
 
       const locationCreated = await locationService.createLocation(location);
-      console.log('locationCreated:', locationCreated, userAuthenticated)
+      
       if (!locationCreated) {
         res.status(400).json({ message: "Location not created" });
         return;

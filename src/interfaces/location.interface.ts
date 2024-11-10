@@ -2,7 +2,7 @@ export interface Location {
   id: string;
   name: string;
   description: string;
-  city: string;
+  city: string | City;
   lat: number;
   lon: number;
   createdAt: Date;

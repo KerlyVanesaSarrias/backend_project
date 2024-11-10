@@ -15,7 +15,7 @@ export class TouristPlanRepository implements ITouristPlanRepository {
       .populate({
         path: 'createdBy',
         select: '-_id -password -roles -__v -createdAt'
-      });
+      }).lean();
 
       return toristPlansList;
     }
