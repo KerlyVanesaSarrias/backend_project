@@ -34,8 +34,8 @@ export class TouristPlanController {
   async deleteTouristPlan(req: Request, res: Response) {
     const touristPlanId = res.locals.touristPlan as TouristPlan;
     await touristPlanService.deleteById(touristPlanId.id);
-    res.status(200).json({ 
-      message: "TouristPlan deleted successfully"
+    res.status(200).json({
+      message: "TouristPlan deleted successfully",
     });
   }
 
@@ -54,9 +54,15 @@ export class TouristPlanController {
     try {
       const { location, ...restCreateTouristProps } =
         req.body as CreateTouristPlanBody;
+
       const userAuthenticated = res.locals.user as AuthUser;
 
       const locationCreated = await locationService.createLocation(location);
+      console.log('locationCreated:', locationCreated, userAuthenticated)
+      if (!locationCreated) {
+        res.status(400).json({ message: "Location not created" });
+        return;
+      }
       const createdTouristData: CreateTouristPlan = {
         ...restCreateTouristProps,
         coverImage: "default.png",
@@ -66,10 +72,15 @@ export class TouristPlanController {
       const createdTouristPlan = await touristPlanService.createTouristPlan(
         createdTouristData
       );
-      res.status(201).json({
-        status:'success',
-        message: "TouristPlan created successfully",
-        createdTouristPlan});
+      if (createdTouristData) {
+        res.status(201).json({
+          status: "success",
+          message: "TouristPlan created successfully",
+          data: createdTouristPlan,
+        });
+      } else {
+        res.status(400).json({ message: "Error creating TouristPlan" });
+      }
     } catch (e) {
       console.error("create TouristPlan error:", e);
       if (e instanceof Error) {
