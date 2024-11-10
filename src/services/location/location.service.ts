@@ -1,6 +1,6 @@
 import { Location } from '../../interfaces/location.interface';
 import { ILocationRepository } from "../../repositories/location/location.repository.interface";
-import { CreateLocation, ILocationService } from './location.service.interface';
+import { ILocationService } from './location.service.interface';
 
 
 
@@ -31,7 +31,7 @@ export class LocationService implements ILocationService {
     return locationUpdate;
   }
 
-  async createLocation(location: CreateLocation): Promise<Location | null> {
+  async createLocation(location: Location): Promise<Location | null> {
     const locationCreate = await this.locationRepository.createLocation({...location});
     return locationCreate;
   }

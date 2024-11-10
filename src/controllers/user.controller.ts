@@ -40,7 +40,7 @@ export class UserController {
         res.status(200).json({
           status: "created",
           message: "User created successfully",
-          createdUser,
+          data: createdUser,
         });
       } else {
         res.status(400).json({ message: "Existing user" });
@@ -67,7 +67,7 @@ export class UserController {
       res.status(200).json({
         status: "loggedIn",
         message: "User logged in successfully",
-        loginResponse,
+        data: loginResponse,
       });
     } catch (error) {
       res.status(500).json({ message: "Internal Server Error", error });

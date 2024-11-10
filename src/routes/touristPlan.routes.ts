@@ -2,6 +2,7 @@ import { Router } from "express";
 import { TouristPlanController } from '../controllers/touristPlan.controller';
 import { validate } from "../middlewares/validate.middlewarw";
 import { ensureAuth } from "../middlewares/auth";
+import { ROLES } from "../constants";
 
 
 const touristPlanController = new TouristPlanController();
@@ -15,8 +16,6 @@ router.delete("/", touristPlanController.deleteTouristPlan)
 
 router.put("/", touristPlanController.updateTouristPlan)
 
-router.post("/create", touristPlanController.createTouristPlan)
-
-
+router.post("/create", ensureAuth([ROLES.CLIENT, ROLES.ADMIN]), touristPlanController.createTouristPlan)
 
 export default router;

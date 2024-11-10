@@ -1,15 +1,14 @@
-import { Types } from "mongoose";
 export interface Location {
   id: string;
   name: string;
   description: string;
-  city: City;
+  city: string | City;
   lat: number;
   lon: number;
   createdAt: Date;
 }
 
-export interface City {
+export type City = {
   id: string;
   name: string;
   department: string;

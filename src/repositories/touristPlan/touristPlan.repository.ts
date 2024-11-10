@@ -6,7 +6,17 @@ import { ITouristPlanRepository } from "./touristPlan.repository.interface";
 export class TouristPlanRepository implements ITouristPlanRepository {
    
     async findAll(): Promise<TouristPlan[]> {
-      const toristPlansList = await TouristPlanModel.find();
+      const toristPlansList = await TouristPlanModel.find()
+      .select('-__v -createAt')
+      .populate({
+        path: 'location',
+        select: '-_id -__v -createdAt'
+      })
+      .populate({
+        path: 'createdBy',
+        select: '-_id -password -roles -__v -createdAt'
+      }).lean();
+
       return toristPlansList;
     }
 
