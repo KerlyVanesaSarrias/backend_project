@@ -3,7 +3,6 @@ import { LocationService } from "../services/location/location.service";
 import { LocationRepository } from "../repositories/location/location.repository";
 import { Location } from "../interfaces/location.interface";
 import { AuthUser } from "../interfaces/user.interface";
-import { cities } from '../constants/index';
 
 const locationRepo = new LocationRepository();
 const locationService = new LocationService(locationRepo);
@@ -55,7 +54,8 @@ export class LocationController {
 
     async getCities(req: Request, res: Response) {
       try {
-        res.status(200).json(cities); 
+        const citiesData = await locationService.getCities();
+        res.status(200).json(citiesData); 
     } catch (e) {
       console.error("getCities error:", e);
       if (e instanceof Error) {

@@ -1,4 +1,5 @@
-import { Location } from '../../interfaces/location.interface';
+import { cities } from '../../constants';
+import { City, Location } from '../../interfaces/location.interface';
 import { ILocationRepository } from "../../repositories/location/location.repository.interface";
 import { ILocationService } from './location.service.interface';
 
@@ -35,5 +36,12 @@ export class LocationService implements ILocationService {
     const locationCreate = await this.locationRepository.createLocation({...location});
     return locationCreate;
   }
-  
+
+  async getCities(): Promise<City[]> {
+    const allLocations = await this.locationRepository.findAll();
+    const citiesIds = allLocations.map(location => location.city) as string[];
+    const uniqueCitiesIds = [... new Set(citiesIds)];
+    const citiesWithTouristPlans = cities.filter(city => uniqueCitiesIds.includes(city.id))
+    return citiesWithTouristPlans;
+  }  
 }
