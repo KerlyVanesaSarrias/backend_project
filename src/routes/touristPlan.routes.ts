@@ -14,7 +14,7 @@ router.get("/:touristPlanId", touristPlanController.getTouristPlan)
 
 router.delete("/", touristPlanController.deleteTouristPlan)
 
-router.put("/", touristPlanController.updateTouristPlan)
+router.put("/:id", touristPlanController.updateTouristPlan)
 
 router.post("/create", ensureAuth([ROLES.CLIENT, ROLES.ADMIN]), touristPlanController.createTouristPlan)
 

@@ -1,6 +1,6 @@
 import headers  from 'express';
 export interface User {
-  id: string;
+  _id: string;
   name: string;
   lastName: string;
   nick:string;
