@@ -5,12 +5,12 @@ import { IUserRepository, UserByEmailOrNickParams } from "./user.repository.inte
 export class UserRepository implements IUserRepository {
    
     async findAll(): Promise<User[]> {
-      const usersList = await UserModel.find();
+      const usersList = await UserModel.find().select('-password');
       return usersList;
     }
 
     async findById(userId: string): Promise<User | null> {
-      const user = await UserModel.findById(userId);
+      const user = await UserModel.findById(userId).select('-password');
       return user;
     }
 
@@ -20,7 +20,7 @@ export class UserRepository implements IUserRepository {
     }
     
     async updateById(userId: string, newUser: User): Promise<User | null> {
-      const userUpdate = await UserModel.findByIdAndUpdate(userId, newUser, { new: true });
+      const userUpdate = await UserModel.findByIdAndUpdate(userId, newUser, { new: true }).select('-password');
       return userUpdate;
     }
 
@@ -31,7 +31,7 @@ export class UserRepository implements IUserRepository {
     }
 
     async findUserByEmailOrNick({email, nick}: UserByEmailOrNickParams): Promise<User | null> {
-      const existingUser = await UserModel.findOne({$or: [{ email: email?.toLowerCase() }, { nick: nick?.toLowerCase() }]});
+      const existingUser = await UserModel.findOne({$or: [{ email: email?.toLowerCase() }, { nick: nick?.toLowerCase() }]}).select('-password');
       return existingUser
     }
 

@@ -21,7 +21,15 @@ export class TouristPlanRepository implements ITouristPlanRepository {
     }
 
     async findById(toristPlanId: string): Promise<TouristPlan | null> {
-      const toristPlan = await TouristPlanModel.findById(toristPlanId);
+      const toristPlan = await TouristPlanModel.findById(toristPlanId).select('-__v -createAt')
+      .populate({
+        path: 'location',
+        select: '-_id -__v -createdAt',
+      })
+      .populate({
+        path: 'createdBy',
+        select: '-_id -password -roles -__v -createdAt'
+      }).lean();
       return toristPlan;
     }
 
@@ -30,14 +38,24 @@ export class TouristPlanRepository implements ITouristPlanRepository {
       return toristPlanDelete;
     }
 
-    async updateById(toristPlanId: string, newTouristPlan: TouristPlan): Promise<TouristPlan | null> {
-      const toristPlanUpdate = await TouristPlanModel.findByIdAndUpdate(toristPlanId, newTouristPlan, { new: true });
-      return toristPlanUpdate;
+    async updateById(toristPlanId: string, updateData: Partial<CreateTouristPlan>): Promise<TouristPlan | null> {
+      const updatedTouristPlan = await TouristPlanModel.findByIdAndUpdate(toristPlanId, updateData, { new: true })
+        .select('-__v -createdAt')
+        .populate({
+          path: 'location',
+          select: '-_id -__v -createdAt',
+        })
+        .populate({
+          path: 'createdBy',
+          select: '-_id -password -roles -__v -createdAt',
+        })
+        .lean();
+    
+      return updatedTouristPlan;
     }
 
     async createTouristPlan(toristPlan: CreateTouristPlan): Promise<TouristPlan> {
       const toristPlanCreate = await TouristPlanModel.create(toristPlan);
-      console.log('toristPlanCreate: ', toristPlanCreate)
       return toristPlanCreate;
     }
 

@@ -21,6 +21,6 @@ export interface ITouristPlanService {
     getTouristPlanById(touristPlanId: string): Promise<TouristPlan | null>;
     getTouristPlansList(cityId?: string): Promise<TouristPlan[]>
     deleteById(touristPlanId: string): Promise<TouristPlan | null>;
-    updateById(touristPlanId:string, newTouristPlan: TouristPlan): Promise<TouristPlan | null>;
-    createTouristPlan(touristPlan: CreateTouristPlan):  Promise<TouristPlan | null>;
+    updateById(toristPlanId: string, updateData: Partial<CreateTouristPlan>): Promise<TouristPlan | null>
+    createTouristPlan(touristPlan: CreateTouristPlan, userId: string):  Promise<TouristPlan | null>;
 }

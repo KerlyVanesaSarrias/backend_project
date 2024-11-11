@@ -1,4 +1,3 @@
-import { toUserDto } from "../../dto/user.dto";
 import { User } from "../../interfaces/user.interface";
 import { IUserRepository } from "../../repositories/user/user.repository.interface";
 import { IUserService, LoginResponse } from "./user.servise.interface";
@@ -14,22 +13,22 @@ export class UserService implements IUserService {
 
   async getUsersList(): Promise<User[]> {
     const usersList = await this.userRepository.findAll();
-    return usersList.map((user) => toUserDto(user));
+    return usersList;
   }
 
   async getUserById(userId: string): Promise<User | null> {
     const user = await this.userRepository.findById(userId);
-    return user ? toUserDto(user) : null;
+    return user;
   }
 
   async deleteById(userId: string): Promise<User | null> {
     const userDelete = await this.userRepository.deleteById(userId);
-    return userDelete ? toUserDto(userDelete) : null;
+    return userDelete;
   }
 
   async updateById(userId: string, newUser: User): Promise<User | null> {
     const userUpdate = await this.userRepository.updateById(userId, newUser);
-    return userUpdate ? toUserDto(userUpdate) : null;
+    return userUpdate;
   }
 
   async createUser(user: User): Promise<User | null> {
@@ -47,7 +46,7 @@ export class UserService implements IUserService {
       password: hashedPassword,
     });
 
-    return toUserDto(userCreate);
+    return userCreate;
   }
 
   async login(email: string, password: string): Promise<LoginResponse | null> {
@@ -58,12 +57,12 @@ export class UserService implements IUserService {
     if (!isPasswordValid) return null;
 
     const token = jwt.sign(
-      { id: user.id, email: user.email, roles: user.roles },
+      { id: user._id, email: user.email, roles: user.roles },
       process.env.SECRET_KEY as string,
       { expiresIn: "24h" }
     );
     if(!token) return null;
     
-    return { token, user: toUserDto(user) };
+    return { token, user: user };
   }
 }

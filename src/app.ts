@@ -2,6 +2,7 @@ import express from "express"
 import userRoutes from "./routes/user.routes";
 import locationRoutes from "./routes/location.routes";
 import touristPlanRoutes from "./routes/touristPlan.routes";
+import reservationRoutes from "./routes/reservation.routes"
 import connectDB from "./config/database";
 import { errorHandler } from "./middlewares/error.middleware";
 import cors from "cors";
@@ -28,6 +29,7 @@ app.use(express.json());
 app.use("/api/users", userRoutes )
 app.use("/api/locations", locationRoutes);
 app.use("/api/touristPlans", touristPlanRoutes);
+app.use("/api/reservations", reservationRoutes);
 app.use(errorHandler)
 
 export default app;

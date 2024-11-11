@@ -3,14 +3,14 @@ import { Reservation } from "../interfaces/reservation.interface";
 
 
 const reservationSchema = new Schema<Reservation>({
-    userId: {
+    user: {
         type: Types.ObjectId,
-        ref: "User",
+        ref: 'User',
         required: true
     },
-    touristPlanId: {
+    touristPlan: {
         type: Types.ObjectId,
-        ref: "TouristPlan",
+        ref: 'TouristPlan',
         required: true
     },
     checkIn: {
@@ -19,10 +19,6 @@ const reservationSchema = new Schema<Reservation>({
     },
     checkOut: {
         type: Date,
-        required: true
-    },
-    status: {
-        type: Boolean,
         required: true
     },
     createdAt: {
