@@ -77,7 +77,7 @@ export class UserController {
   async profile(req: Request, res: Response) {
     const userToken = res.locals.user as AuthUser;
     const userId = userToken.id;
-    if (!userToken || userId) {
+    if (!userId) {
       res.status(401).send({
         status: "success",
         message: "Unathenticated user",
