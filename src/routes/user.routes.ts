@@ -15,7 +15,7 @@ router.delete("/user", ensureAuth([ROLES.CLIENT]), userController.deleteUser)
 router.put("/user", ensureAuth([ROLES.CLIENT]), userController.updateUser)
 router.post("/create", validate(userCreateValidationShema), userController.createUser)
 router.post("/login", validate(loginValidationSchema), userController.login);
-router.get("/user", ensureAuth([ROLES.CLIENT,ROLES.ADMIN]), userController.profile)
+router.get("/profile", ensureAuth([ROLES.CLIENT,ROLES.ADMIN]), userController.profile)
 
 
 export default router;

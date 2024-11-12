@@ -18,8 +18,10 @@ const locationRepo = new LocationRepository();
 const locationService = new LocationService(locationRepo);
 
 export class ReservationController {
-  async getReservationsList(req: Request, res: Response) {
-    const reservations = await reservationService.getReservationsList();
+  async getReservationsByUser(req: Request, res: Response) {
+    const userAuthenticated = res.locals.user as AuthUser;
+    console.log('userAuthenticated: ', userAuthenticated)
+    const reservations = await reservationService.getReservationsByUser(userAuthenticated.id);
     res.json(reservations);
   }
 
@@ -46,8 +48,12 @@ export class ReservationController {
         data: createdReservation,
       });
     } catch (error) {
-      console.error("Create Reservation error:", error);
-      res.status(500).json({ message: "Internal Server Error" });
+      console.error("createReservation error:", error);
+      if (error instanceof Error) {
+        res.status(400).json({ message: error.message });
+      } else {
+        res.status(500).json({ message: "Internal Server Error" });
+      }
     }
   }
 }
