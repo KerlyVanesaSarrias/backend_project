@@ -11,6 +11,7 @@ import { Types } from "mongoose";
 import { LocationService } from "../services/location/location.service";
 import { LocationRepository } from "../repositories/location/location.repository";
 import TouristPlanModel from "../models/touristPlan.model";
+import { imageDefault } from "../constants";
 
 const touristPlanRepo = new TouristPlanRepository();
 const touristPlanService = new TouristPlanService(touristPlanRepo);
@@ -87,7 +88,7 @@ export class TouristPlanController {
       }
       const createdTouristData: CreateTouristPlan = {
         ...restCreateTouristProps,
-        coverImage: "default.png",
+        coverImage: imageDefault,
         createdBy: new Types.ObjectId(userAuthenticated.id),
         location: new Types.ObjectId(locationCreated?.id),
       };
