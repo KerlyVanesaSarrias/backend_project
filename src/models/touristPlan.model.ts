@@ -1,5 +1,6 @@
 import { Schema, Types, model } from "mongoose";
 import { TouristPlan } from "../interfaces/tourisPlan.interface";
+import { imageDefault, imagesDefault } from "../constants";
 
 
 const touristPlanSchema = new Schema<TouristPlan>({
@@ -26,11 +27,12 @@ const touristPlanSchema = new Schema<TouristPlan>({
     },
     coverImage:{
         type:String,
-        default: "default_image.png"
+        default: imageDefault
     },
     images: {
         type: [String],
-        required: true
+        required: true,
+        default: imagesDefault
     },
     available: {
         type: Boolean,

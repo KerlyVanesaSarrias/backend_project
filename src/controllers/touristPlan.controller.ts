@@ -7,9 +7,10 @@ import {
 } from "../interfaces/tourisPlan.interface";
 import { AuthUser } from "../interfaces/user.interface";
 import { CreateTouristPlan } from "../services/tourisPlan/touristPlan.service.interface";
-import { ObjectId, Types } from "mongoose";
+import { Types } from "mongoose";
 import { LocationService } from "../services/location/location.service";
 import { LocationRepository } from "../repositories/location/location.repository";
+import TouristPlanModel from "../models/touristPlan.model";
 
 const touristPlanRepo = new TouristPlanRepository();
 const touristPlanService = new TouristPlanService(touristPlanRepo);
@@ -110,4 +111,54 @@ export class TouristPlanController {
       }
     }
   }
+
+async updateCoverImage(req: Request, res: Response) {
+  const { touristPlanId } = req.params;
+  console.log('file', req.file)
+  const file = req.file?.path;
+
+  if (!file) {
+      res.status(400).json({ message: "No image was provided." });
+      return;
+  }
+
+  try {
+    const touristPlanUpdated = await touristPlanService.updateById(touristPlanId, {coverImage: file});
+
+      if (!touristPlanUpdated) {
+          res.status(404).json({ message: "Plan turist not found" });
+          return;
+      }
+
+      res.status(200).json(touristPlanUpdated);
+  } catch (error) {
+      res.status(500).json({ message: "Error al actualizar la imagen", error });
+  }
+};
+
+async updateImages(req: Request, res: Response) {
+  const { touristPlanId } = req.params;
+  const files = req.files as Express.Multer.File[];
+
+  if (!files || files.length === 0) {
+      res.status(400).json({ message: "No image was provided." });
+      return;
+  }
+  const imagePaths = files.map((file: any) => file.path);
+  try {
+    const touristPlanUpdated = await touristPlanService.updateById(touristPlanId, {images: imagePaths});
+
+      if (!touristPlanUpdated) {
+          res.status(404).json({ message: "Plan turist not found" });
+          return;
+      }
+
+      res.status(200).json(touristPlanUpdated);
+  } catch (error) {
+      res.status(500).json({ message: "Error update image", error });
+  }
+};
+
+
 }
+
