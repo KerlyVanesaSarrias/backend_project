@@ -26,6 +26,21 @@ export class ReservationService implements IReservationService {
     return reservationsList;
   }
 
+  async getReservationsByAdmin(userId: string): Promise<Reservation[]> {
+    const touristPlans = await TouristPlanModel.find({ createdBy: userId }).lean();
+    const touristPlanIds = touristPlans.map(plan => plan._id);
+    const reservations = await ReservationModel.find({
+      touristPlan: { $in: touristPlanIds }
+    })
+      .populate('touristPlan')
+      .populate({
+        path: 'user',
+        select: '-password -roles',
+      })
+      .lean();
+      return reservations;
+  }
+
   async deleteById(reservationId: string): Promise<Reservation | null> {
     const reservationDelete = await this.reservationRepository.deleteById(reservationId);
     return reservationDelete;

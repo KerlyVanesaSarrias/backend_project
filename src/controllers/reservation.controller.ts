@@ -8,8 +8,8 @@ import {
 import { AuthUser, User } from "../interfaces/user.interface";
 import { LocationService } from "../services/location/location.service";
 import { LocationRepository } from "../repositories/location/location.repository";
-import { TouristPlan } from "../interfaces/tourisPlan.interface";
 import { Types } from "mongoose";
+import { ROLES } from "../constants";
 
 const reservationRepo = new ReservationRepository();
 const reservationService = new ReservationService(reservationRepo);
@@ -20,9 +20,30 @@ const locationService = new LocationService(locationRepo);
 export class ReservationController {
   async getReservationsByUser(req: Request, res: Response) {
     const userAuthenticated = res.locals.user as AuthUser;
-    console.log('userAuthenticated: ', userAuthenticated)
     const reservations = await reservationService.getReservationsByUser(userAuthenticated.id);
     res.json(reservations);
+  }
+
+  async getReservationsByAdmin(req: Request, res: Response) {
+    try {
+      const userAuthenticated = res.locals.user as AuthUser;
+
+      if (!userAuthenticated.roles.includes(ROLES.ADMIN)) {
+        res.status(403).json({ message: 'Access denied' });
+        return;
+      }
+  
+      const reservations = await reservationService.getReservationsByAdmin(userAuthenticated.id);
+  
+      res.json({
+        status: "success",
+        message: "Reservations retrieved successfully",
+        data: reservations,
+      });
+    } catch (error) {
+      console.error("getReservationsByAdmin error:", error);
+      res.status(500).json({ message: "Internal Server Error" });
+    }
   }
 
   async createReservation(req: Request, res: Response): Promise<void> {

@@ -34,5 +34,14 @@ export class UserRepository implements IUserRepository {
       const existingUser = await UserModel.findOne({$or: [{ email: email?.toLowerCase() }, { nick: nick?.toLowerCase() }]}).select('-password');
       return existingUser
     }
-
+    
+    async updateAvatar(userId: string, avatarUrl: string) {
+      const userUpdated = await UserModel.findByIdAndUpdate(
+        userId,
+        { image: avatarUrl },
+        { new: true }
+      );
+  
+      return userUpdated;
+    }
 }

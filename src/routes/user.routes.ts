@@ -6,6 +6,7 @@ import { ensureAuth } from "../middlewares/auth";
 import { ROLES } from "../constants";
 
 
+
 const userController = new UserController();
 const router = Router();
 
@@ -16,6 +17,7 @@ router.delete("/user", ensureAuth([ROLES.CLIENT]), userController.deleteUser)
 router.put("/user", ensureAuth([ROLES.CLIENT]), userController.updateUser)
 router.post("/create", validate(userCreateValidationShema), userController.createUser)
 router.post("/login", validate(loginValidationSchema), userController.login);
+
 
 
 export default router;

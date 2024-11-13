@@ -1,4 +1,3 @@
-
 import { cities, ROLES } from "../../constants";
 import { City } from "../../interfaces/location.interface";
 import { TouristPlan } from "../../interfaces/tourisPlan.interface";
@@ -62,4 +61,6 @@ export class TouristPlanService implements ITouristPlanService {
     }
     return touristPlanCreate;
   }
+
+
 }

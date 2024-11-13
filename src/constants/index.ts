@@ -45,3 +45,13 @@ export const ROLES = {
     CLIENT: 'client',
     SUPER_ADMIN: 'super-admin'
 } as const
+
+export const imageDefault = "https://res.cloudinary.com/dc38afvjc/image/upload/v1731447478/images%20default/pv1sct9u7cfdcd5olkbu.png"
+
+export const imagesDefault = [
+    imageDefault,
+    imageDefault,
+    imageDefault,
+    imageDefault,
+    imageDefault,
+]
