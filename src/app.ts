@@ -7,6 +7,9 @@ import connectDB from "./config/database";
 import { errorHandler } from "./middlewares/error.middleware";
 import cors from "cors";
 import bodyParser from "body-parser";
+import swaggerJSDoc from "swagger-jsdoc";
+import swaggerOptions from "./config/swaggerConfig";
+import swaggerUi from 'swagger-ui-express';
 
 connectDB()
 console.log("API Node en ejecución");
@@ -23,6 +26,9 @@ app.use(cors({
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+const swaggerSpec = swaggerJSDoc(swaggerOptions)
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
 
 
 app.use(express.json());

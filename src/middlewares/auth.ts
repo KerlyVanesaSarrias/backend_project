@@ -31,7 +31,6 @@ export const ensureAuth = (allowedRoles: Roles[]) => (req: Request, res: Respons
 
     const hasRole = (payload as AuthUser).roles.some((role) => allowedRoles.includes(role as Roles));
 
-    console.log('roles: ', payload.roles, allowedRoles, hasRole)
 
     if (!hasRole) {
       res.status(403).send({

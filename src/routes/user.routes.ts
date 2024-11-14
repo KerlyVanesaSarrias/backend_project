@@ -9,7 +9,12 @@ import { ROLES } from "../constants";
 
 const userController = new UserController();
 const router = Router();
-
+/**
+ * @swagger
+ * /users:
+ *      get:
+ *          summary: get user list
+ */
 router.get("/",ensureAuth([ROLES.CLIENT,ROLES.ADMIN]), userController.getUsersList)
 router.get("/profile", ensureAuth([ROLES.CLIENT, ROLES.ADMIN]), userController.profile)
 router.get("/user/:userId",ensureAuth([ROLES.SUPER_ADMIN]), userController.getUser)
