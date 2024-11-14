@@ -12,7 +12,7 @@ export const cities: City[] = [
     { id: "9", name: "Elías", image: "https://example.com/elias.jpg", department: "Huila" },
     { id: "10", name: "Garzón", image: "https://example.com/garzon.jpg", department: "Huila" },
     { id: "11", name: "Gigante", image: "https://example.com/gigante.jpg", department: "Huila" },
-    { id: "12", name: "Guadalupe", image: "https://example.com/guadalupe.jpg", department: "Huila" },
+    { id: "12", name: "Guadalupe", image: "https://res.cloudinary.com/dc38afvjc/image/upload/v1731559352/Galery%20images/hkloznle2jkh1sho8p2c.jpg", department: "Huila" },
     { id: "13", name: "Hobo", image: "https://example.com/hobo.jpg", department: "Huila" },
     { id: "14", name: "Iquira", image: "https://example.com/iquira.jpg", department: "Huila" },
     { id: "15", name: "Isnos", image: "https://example.com/isnos.jpg", department: "Huila" },
